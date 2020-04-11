@@ -35,6 +35,9 @@
         <?php include('errors.php') ?>
 
         <button type="submit" class="btn btn-primary" name="Loginuser">Sign in</button>
+        <div class="amargin">
+            <a href="reg.php">Not a user?</a>
+        </div>
     </form>
 
 

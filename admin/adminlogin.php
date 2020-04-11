@@ -1,4 +1,19 @@
-<?php include('server.php') ?>
+<?php
+$admin_name = "admin";
+$admin_pass = "123 ";
+
+session_start();
+if (isset($_POST["Loginadmin"])) {
+    $name = $_POST["username"];
+    $pass = $_POST["pass"];
+    if (($name == $admin_name) and ($pass == $admin_pass)) {
+        $_SESSION["username"] = $admin_name;
+        header('location: dashboard.php');
+    } else {
+        $_SESSION["err"] = "Username or password incorrect";
+    }
+}
+?>
 
 <!DOCTYPE html>
 
@@ -10,7 +25,7 @@
     <!-- <link rel="stylesheet" href=""> -->
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="../css/login.css">
 
 </head>
 
@@ -32,9 +47,13 @@
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
             <label class="form-check-label" for="exampleCheck1">Check me out</label>
         </div>
-        <?php include('errors.php') ?>
+        <?php if (isset($_SESSION["err"])) { ?>
+            <span class="badge badge-danger"><?php echo $_SESSION["err"] ?></span>
 
-        <button type="submit" class="btn btn-primary" name="Loginuser">Sign in</button>
+        <?php
+            unset($_SESSION["err"]);
+        } ?>
+        <button type="submit" class="btn btn-primary" name="Loginadmin">Sign in</button>
     </form>
 
 
