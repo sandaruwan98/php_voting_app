@@ -124,16 +124,32 @@ if (!isset($_SESSION["username"])) {
         </section> -->
     </header>
 
+    <?php
+    $db = mysqli_connect("localhost", "root", "", "phpvoteapp") or die("could not connect to database");
+    if ($_GET["id"]) {
+        $votes = $_GET["x"] + 1;
+        $id = $_GET["id"];
+        $q = "UPDATE votecards SET numofvotes = $votes  WHERE id = '$id'";
+        mysqli_query($db, $q);
+    } 
+    $query = "SELECT * FROM votecards";
+   
+    $result = mysqli_query($db, $query);
+
+    ?>
     <div id="card-section" style="margin-top: 2cm;">
         <h1 class="text-center font-weight-bolder">Choose a one and VOTE</h1>
         <div class="cards-con">
-            
+            <?php
+            while ($row = mysqli_fetch_assoc($result)) {
+
+            ?>
                 <!-- Card -->
                 <div class="card">
 
                     <!-- Card image -->
                     <div class="view overlay" style="height: 30vh;-webkit-background-size: cover;">
-                        <img class="card-img-top" src="" alt="Card image cap">
+                        <img class="card-img-top" src="<?php echo ($row["img"]); ?>" alt="Card image cap">
                         <a href="#!">
                             <div class="mask rgba-white-slight"></div>
                         </a>
@@ -143,16 +159,16 @@ if (!isset($_SESSION["username"])) {
                     <div class="card-body">
 
                         <!-- Title -->
-                        <h4 class="card-title"> ?></h4>
+                        <h4 class="card-title"><?php echo ($row["name"]); ?></h4>
                         <!-- Text -->
-                        <p class="card-text"> ?></p>
+                        <p class="card-text"><?php echo ($row["discription"]) ?></p>
                         <!-- Button -->
-                        <a href="" type="submit" name="votebtn" class="btn btn-primary">Vote</a>
+                        <a href="index.php?id=<?php echo ($row["id"]); ?>&x=<?php echo ($row["numofvotes"]); ?>" type="submit" name="votebtn" class="btn btn-primary">Vote</a>
 
                     </div>
 
                 </div><!-- Card -->
-            
+            <?php } ?>
         </div>
     </div>
     <!-- <div class="slider"></div> -->
