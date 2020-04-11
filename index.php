@@ -24,8 +24,7 @@ if (!isset($_SESSION["username"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- <link rel="stylesheet" href=""> -->
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
@@ -55,23 +54,21 @@ if (!isset($_SESSION["username"])) {
                     <a href="" class="btn btn-dark btn-lg"><i class="fas fa-house-damage"></i> My Account</a>
                 </div>
                 <div class="menubtn">
-                    <a href="index.php?logout='1'" role="button" class="btn btn-dark btn-lg"><i
-                            class="fas fa-sign-out-alt"></i> Logout</a>
+                    <a href="index.php?logout='1'" role="button" class="btn btn-dark btn-lg"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
 
             </div>
         </div>
 
         <nav class="mb-1 navbar navbar-expand-lg navbar-dark indigo fixed-top scrolling-navbar">
-            <a class="navbar-brand" href="#"><i class="fab fa-houzz"> </i><?php if (isset($_SESSION["username"])) :
+            <a class="navbar-brand" href="#"><i class="fab fa-houzz"> </i>
+                <?php if (isset($_SESSION["username"])) :
 
-                                                ?>
-                Welcome <?php echo $_SESSION["username"] ?>
+                ?>
+                    Welcome <?php echo $_SESSION["username"] ?>
 
                 <?php endif ?></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#navbarSupportedContent-333" aria-controls="navbarSupportedContent-333"
-                aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-333" aria-controls="navbarSupportedContent-333" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent-333">
@@ -118,16 +115,47 @@ if (!isset($_SESSION["username"])) {
             </div>
         </nav>
 
-        <section>
+        <!-- <section>
             <div class="hero">
                 <img src="./img/carwall.jpg" alt="">
                 <h1 class="headline font-weight-bolder"><i class="fas fa-virus"> </i>LK INC</h1>
             </div>
 
-        </section>
+        </section> -->
     </header>
 
-    <div class="slider"></div>
+    <div id="card-section" style="margin-top: 2cm;">
+        <h1 class="text-center font-weight-bolder">Choose a one and VOTE</h1>
+        <div class="cards-con">
+            
+                <!-- Card -->
+                <div class="card">
+
+                    <!-- Card image -->
+                    <div class="view overlay" style="height: 30vh;-webkit-background-size: cover;">
+                        <img class="card-img-top" src="" alt="Card image cap">
+                        <a href="#!">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+
+                    <!-- Card content -->
+                    <div class="card-body">
+
+                        <!-- Title -->
+                        <h4 class="card-title"> ?></h4>
+                        <!-- Text -->
+                        <p class="card-text"> ?></p>
+                        <!-- Button -->
+                        <a href="" type="submit" name="votebtn" class="btn btn-primary">Vote</a>
+
+                    </div>
+
+                </div><!-- Card -->
+            
+        </div>
+    </div>
+    <!-- <div class="slider"></div> -->
     <section id="flexex">
         <div class="flex-1 ">
             <div class="left-1 rounded-lg shadow-lg">
@@ -196,8 +224,7 @@ if (!isset($_SESSION["username"])) {
     </div> -->
     <!--Waves Container-->
     <div>
-        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-            viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
             <defs>
                 <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
             </defs>
@@ -260,10 +287,8 @@ if (!isset($_SESSION["username"])) {
 
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"
-        integrity="sha256-lPE3wjN2a7ABWHbGz7+MKBJaykyzqCbU96BJWjio86U=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TimelineMax.min.js"
-        integrity="sha256-fIkQKQryItPqpaWZbtwG25Jp2p5ujqo/NwJrfqAB+Qk=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js" integrity="sha256-lPE3wjN2a7ABWHbGz7+MKBJaykyzqCbU96BJWjio86U=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TimelineMax.min.js" integrity="sha256-fIkQKQryItPqpaWZbtwG25Jp2p5ujqo/NwJrfqAB+Qk=" crossorigin="anonymous"></script>
 
     <script src="app.js"></script>
 

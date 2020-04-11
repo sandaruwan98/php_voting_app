@@ -65,23 +65,3 @@ function scrollAppear() {
 window.addEventListener('scroll', scrollAppear)
 
 
-//*opening animations -------------------------------
-
-const hero = document.querySelector(".hero");
-const slider = document.querySelector(".slider");
-const nav = document.querySelector(".navbar");
-
-
-const tl = new TimelineMax();
-
-tl
-    .fromTo(hero, 0.8, { height: "0%" }, { height: "80%", ease: Power2.easeInOut })
-    .fromTo(hero, 1, { width: "100%", height: "80%" }, { width: "80%", height: "100%", ease: Power2.easeInOut })
-    .fromTo(slider, 1, { x: "-100%" }, { x: "0%", ease: Power2.easeInOut }, "-=1.2")
-    .fromTo(nav, 0.5, { y: -30, opacity: 0 }, { y: 0, opacity: 1 }, "-=0.5");
-// .fromTo(body, 0.5, { background: "white" }, { background: linear-gradient(to top, #914cd1, #4eacff) });
-
-setTimeout(() => {
-    document.body.style.background = "linear-gradient(to top, #914cd1 , #4eacff )";
-    document.body.style.backgroundAttachment = "fixed";
-}, 1600);

@@ -9,7 +9,7 @@
 }
 
 body{
-    background: white;
+    background: linear-gradient(to top, #914cd1 , #4eacff );
     background-attachment: fixed;
     -webkit-background-size: cover;
     
@@ -28,18 +28,17 @@ body{
    }
   }
 
-.slider{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-image: url("../img/b1.jpg");
-    -webkit-background-size: cover;
-    background-attachment: fixed;
+.cards-con{
+    
+    display: flex;
+    /* flex-direction: row; */
+    flex-wrap: wrap;
+    margin-top: 35px;
+}
 
-    /* background: linear-gradient(to right,rgba(103, 187, 108, 0.815),rgb(3, 192, 3)); */
-    z-index: -1;
+.card{
+    width: 18rem;
+    margin: 0 10px 20px 10px;
 }
 
 nav{
@@ -103,14 +102,6 @@ nav{
 }
 
 
-
-#logo{
-    /* grid-column: 2/3; */
-    font-size: 24px;
-}
-header{
-    height: 100vh;
-}
 
 
 section{
