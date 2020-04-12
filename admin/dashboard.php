@@ -151,7 +151,8 @@ if ($_GET["logout"]) {
 
             ?>
                 <!-- Card -->
-                <div class="card">
+
+                <div class="card" id="card<?php echo ($row["id"]);  ?>">
 
                     <!-- Card image -->
                     <div class="view overlay" style="height: 30vh;-webkit-background-size: cover;">
@@ -165,11 +166,12 @@ if ($_GET["logout"]) {
                     <div class="card-body">
 
                         <!-- Title -->
-                        <h4 class="card-title"><?php echo ($row["name"]); ?></h4>
+                        <h4 id="card-title<?php echo ($row["id"]);  ?>" class="card-title"><?php echo ($row["name"]); ?></h4>
                         <!-- Text -->
                         <p class="card-text"><?php echo ($row["discription"]) ?></p>
                         <!-- Button -->
-                        <a href="index.php?id=<?php echo ($row["id"]); ?>" type="submit" name="editbtn" class="btn btn-success">Edit</a>
+
+                        <button id="<?php echo($row["id"]);?>" onclick="showform(this.id)" name="editbtn" class="btn btn-success">Edit</button>
 
                     </div>
 
@@ -193,7 +195,7 @@ if ($_GET["logout"]) {
                     <!-- Title -->
                     <h2 class="card-title">Add new vote applicant</h2>
                     <!-- Button -->
-                    <a href="" type="submit" name="editbtn" class="btn btn-success">Add</a>
+                    <button id="add" onclick="showform(this.id)" name="editbtn" class="btn btn-success">Add</button>
                 </div>
             </div>
             <!--Add new Card -->
@@ -204,7 +206,7 @@ if ($_GET["logout"]) {
 
     <div class="popup-form">
         <!-- Default form contact -->
-        <form class="text-center border border-light p-5" action="#!">
+        <form class="text-center border border-light p-5" method="POST" action="#!">
 
             <p class="h4 mb-4">Contact us</p>
 
@@ -212,31 +214,20 @@ if ($_GET["logout"]) {
             <input type="text" id="defaultContactFormName" class="form-control mb-4" placeholder="Name">
 
             <!-- Email -->
-            <input type="email" id="defaultContactFormEmail" class="form-control mb-4" placeholder="E-mail">
+            <input type="text" id="defaultContact" class="form-control mb-4" placeholder="Image URL">
 
             <!-- Subject -->
             <label>Subject</label>
-            <select class="browser-default custom-select mb-4">
-                <option value="" disabled>Choose option</option>
-                <option value="1" selected>Feedback</option>
-                <option value="2">Report a bug</option>
-                <option value="3">Feature request</option>
-                <option value="4">Feature request</option>
-            </select>
 
             <!-- Message -->
             <div class="form-group">
-                <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" placeholder="Message"></textarea>
+                <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" placeholder="Discription"></textarea>
             </div>
 
-            <!-- Copy -->
-            <div class="custom-control custom-checkbox mb-4">
-                <input type="checkbox" class="custom-control-input" id="defaultContactFormCopy">
-                <label class="custom-control-label" for="defaultContactFormCopy">Send me a copy of this message</label>
-            </div>
+
 
             <!-- Send button -->
-            <button class="btn btn-info btn-block" type="submit">Send</button>
+            <button class="btn btn-success btn-block" id="popupformbtn">ADD</button>
 
         </form>
         <!-- Default form contact -->
@@ -344,7 +335,19 @@ if ($_GET["logout"]) {
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js" integrity="sha256-lPE3wjN2a7ABWHbGz7+MKBJaykyzqCbU96BJWjio86U=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TimelineMax.min.js" integrity="sha256-fIkQKQryItPqpaWZbtwG25Jp2p5ujqo/NwJrfqAB+Qk=" crossorigin="anonymous"></script>
-
+    <script>
+        function showform(id) {
+            // console.log("card clicked");
+            console.log("card"+id);
+            
+            const cardtitle = document.getElementById("card-title"+id);
+            
+            const popupform = document.querySelector(".popup-form");
+            const popupform_title = popupform.querySelector("p");
+            popupform_title.textContent = cardtitle.textContent;
+            popupform.classList.add("open");
+        }
+    </script>
     <script src="app.js"></script>
 
 

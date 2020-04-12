@@ -20,3 +20,15 @@ menutrigger.addEventListener('click', () => {
 });
 
 
+//*  -----------------------------------
+
+const popupformbtn = document.querySelector("#popupformbtn");
+
+popupformbtn.addEventListener('click', () => {
+    console.log("clicked");
+    const popupform = document.querySelector(".popup-form");
+    popupform.classList.remove("open");
+
+});
+
+
