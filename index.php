@@ -135,9 +135,9 @@ if (!isset($_SESSION["username"])) {
         $id = $_GET["id"];
         $q = "UPDATE votecards SET numofvotes = $votes  WHERE id = '$id'";
         mysqli_query($db, $q);
-    } 
+    }
     $query = "SELECT * FROM votecards";
-   
+
     $result = mysqli_query($db, $query);
 
     ?>
@@ -206,7 +206,7 @@ if (!isset($_SESSION["username"])) {
             </div>
         </div>
     </section>
-   
+
     <!--Waves Container-->
     <div>
         <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">

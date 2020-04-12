@@ -1,9 +1,10 @@
 <?php
 $admin_name = "admin";
-$admin_pass = "123 ";
+$admin_pass = "123";
 
 session_start();
-if (isset($_POST["Loginadmin"])) {
+if (isset($_POST["loginadmin"])) {
+
     $name = $_POST["username"];
     $pass = $_POST["pass"];
     if (($name == $admin_name) and ($pass == $admin_pass)) {
@@ -32,11 +33,11 @@ if (isset($_POST["Loginadmin"])) {
 <body class="text-center">
 
 
-    <form method="post" action="login.php" class="form-signin">
+    <form method="post" action="<?php echo ($_SERVER['PHP_SELF']) ?>" class="form-signin">
         <h1>Login</h1>
         <div class="form-group">
             <label for="un">Username</label>
-            <input type="text" name="username" class="form-control" id="un">
+            <input type="text" name="username" class="form-control" id="un" required>
             <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
         </div>
         <div class="form-group">
@@ -47,13 +48,13 @@ if (isset($_POST["Loginadmin"])) {
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
             <label class="form-check-label" for="exampleCheck1">Check me out</label>
         </div>
-        <?php if (isset($_SESSION["err"])) { ?>
+        <?php if (isset($_SESSION["err"])) : ?>
             <span class="badge badge-danger"><?php echo $_SESSION["err"] ?></span>
 
         <?php
             unset($_SESSION["err"]);
-        } ?>
-        <button type="submit" class="btn btn-primary" name="Loginadmin">Sign in</button>
+        endif ?>
+        <button type="submit" class="btn btn-primary" name="loginadmin">Sign in</button>
     </form>
 
 

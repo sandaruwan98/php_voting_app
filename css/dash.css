@@ -1,0 +1,17 @@
+
+
+
+body{
+    background: linear-gradient(to top, #19191a , #9ac2e6 );
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    
+}
+
+.vote-list-con{
+    margin: 120px 30px;
+}
+
+.popup-form{
+    background-color: rgba(255, 255, 255, 0.842);
+}

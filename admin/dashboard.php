@@ -4,9 +4,17 @@ session_start();
 
 if (!isset($_SESSION["username"])) {
     $_SESSION["msg"] = "You need to sign in";
+
     header("location: adminlogin.php");
 }
 
+
+
+if ($_GET["logout"]) {
+    session_destroy();
+    unset($_SESSION["username"]);
+    header("location: adminlogin.php");
+}
 
 
 
@@ -40,7 +48,7 @@ if (!isset($_SESSION["username"])) {
     <!-- <link rel="stylesheet" href="css/style.css"> -->
 
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="./../css/dash.css">
+    <link rel="stylesheet" href="../css/dash.css">
 </head>
 
 <body>
@@ -54,7 +62,7 @@ if (!isset($_SESSION["username"])) {
                     <a href="" class="btn btn-dark btn-lg"><i class="fas fa-house-damage"></i> My Account</a>
                 </div>
                 <div class="menubtn">
-                    <a href="index.php?logout='1'" role="button" class="btn btn-dark btn-lg"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    <a href="dashboard.php?logout='1'" role="button" class="btn btn-dark btn-lg"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
 
             </div>
@@ -72,26 +80,26 @@ if (!isset($_SESSION["username"])) {
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
-                        <li class="nav-item ff">
-                            <a class="nav-link" href="#flexex">Users</a>
-                        </li>
                         <li class="nav-item">
-                        <li class="nav-item ff">
-                            <a class="nav-link" href="#flexex">appplicants</a>
+                            <a class="nav-link" href="#flexex">Features</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Rules</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Vote</a>
                         </li>
                         <!-- <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">Dropdown
-                        </a>
-                        <div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li> -->
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Dropdown
+                            </a>
+                            <div class="dropdown-menu dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li> -->
                     </ul>
                     <ul class="navbar-nav ml-auto nav-flex-icons">
                         <li class="nav-item">
@@ -122,7 +130,152 @@ if (!isset($_SESSION["username"])) {
         </section> -->
     </header>
 
-    <!-- <div class="slider"></div> -->
+    <?php
+    $db = mysqli_connect("localhost", "root", "", "phpvoteapp") or die("could not connect to database");
+    if ($_GET["id"]) {
+        $votes = $_GET["x"] + 1;
+        $id = $_GET["id"];
+        $q = "UPDATE votecards SET numofvotes = $votes  WHERE id = '$id'";
+        mysqli_query($db, $q);
+    }
+    $query = "SELECT * FROM votecards";
+
+    $result = mysqli_query($db, $query);
+
+    ?>
+    <div id="card-section" style="margin-top: 2cm;">
+        <h1 class="text-center font-weight-bolder">VOTE LIST</h1>
+        <div class="cards-con">
+            <?php
+            while ($row = mysqli_fetch_assoc($result)) {
+
+            ?>
+                <!-- Card -->
+                <div class="card">
+
+                    <!-- Card image -->
+                    <div class="view overlay" style="height: 30vh;-webkit-background-size: cover;">
+                        <img class="card-img-top" src="<?php echo ($row["img"]); ?>" alt="Card image cap">
+                        <a href="#!">
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                    </div>
+
+                    <!-- Card content -->
+                    <div class="card-body">
+
+                        <!-- Title -->
+                        <h4 class="card-title"><?php echo ($row["name"]); ?></h4>
+                        <!-- Text -->
+                        <p class="card-text"><?php echo ($row["discription"]) ?></p>
+                        <!-- Button -->
+                        <a href="index.php?id=<?php echo ($row["id"]); ?>" type="submit" name="editbtn" class="btn btn-success">Edit</a>
+
+                    </div>
+
+                </div><!-- Card -->
+            <?php } ?>
+
+
+            <!--Add new Card -->
+            <div class="card">
+
+                <!-- Card image -->
+                <div class="view overlay" style="height: 30vh;">
+                    <img class="card-img-top" src="../img/add.png" alt="Card image cap">
+                    <a href="#!">
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
+
+                <!-- Card content -->
+                <div class="card-body">
+                    <!-- Title -->
+                    <h2 class="card-title">Add new vote applicant</h2>
+                    <!-- Button -->
+                    <a href="" type="submit" name="editbtn" class="btn btn-success">Add</a>
+                </div>
+            </div>
+            <!--Add new Card -->
+
+
+        </div>
+    </div>
+
+    <div class="popup-form">
+        <!-- Default form contact -->
+        <form class="text-center border border-light p-5" action="#!">
+
+            <p class="h4 mb-4">Contact us</p>
+
+            <!-- Name -->
+            <input type="text" id="defaultContactFormName" class="form-control mb-4" placeholder="Name">
+
+            <!-- Email -->
+            <input type="email" id="defaultContactFormEmail" class="form-control mb-4" placeholder="E-mail">
+
+            <!-- Subject -->
+            <label>Subject</label>
+            <select class="browser-default custom-select mb-4">
+                <option value="" disabled>Choose option</option>
+                <option value="1" selected>Feedback</option>
+                <option value="2">Report a bug</option>
+                <option value="3">Feature request</option>
+                <option value="4">Feature request</option>
+            </select>
+
+            <!-- Message -->
+            <div class="form-group">
+                <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" placeholder="Message"></textarea>
+            </div>
+
+            <!-- Copy -->
+            <div class="custom-control custom-checkbox mb-4">
+                <input type="checkbox" class="custom-control-input" id="defaultContactFormCopy">
+                <label class="custom-control-label" for="defaultContactFormCopy">Send me a copy of this message</label>
+            </div>
+
+            <!-- Send button -->
+            <button class="btn btn-info btn-block" type="submit">Send</button>
+
+        </form>
+        <!-- Default form contact -->
+    </div>
+
+
+    <div class="vote-list-con">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                    <td>@twitter</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
 
     <!--Waves Container-->
     <div>
@@ -209,13 +362,6 @@ if (!isset($_SESSION["username"])) {
 
     </script>
 </body>
-<?php
 
-if ($_GET["logout"]) {
-    session_destroy();
-    unset($_SESSION["username"]);
-    header("location: login.php");
-}
-?>
 
 </html>
