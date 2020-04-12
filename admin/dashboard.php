@@ -132,12 +132,7 @@ if ($_GET["logout"]) {
 
     <?php
     $db = mysqli_connect("localhost", "root", "", "phpvoteapp") or die("could not connect to database");
-    if ($_GET["id"]) {
-        $votes = $_GET["x"] + 1;
-        $id = $_GET["id"];
-        $q = "UPDATE votecards SET numofvotes = $votes  WHERE id = '$id'";
-        mysqli_query($db, $q);
-    }
+    
     $query = "SELECT * FROM votecards";
 
     $result = mysqli_query($db, $query);
@@ -166,12 +161,13 @@ if ($_GET["logout"]) {
                     <div class="card-body">
 
                         <!-- Title -->
-                        <h4 id="card-title<?php echo ($row["id"]);  ?>" class="card-title"><?php echo ($row["name"]); ?></h4>
+                        <h4 id="card-titleid" class="card-title"><?php echo ($row["name"]); ?>
+                        </h4>
                         <!-- Text -->
                         <p class="card-text"><?php echo ($row["discription"]) ?></p>
                         <!-- Button -->
 
-                        <button id="<?php echo($row["id"]);?>" onclick="showform(this.id)" name="editbtn" class="btn btn-success">Edit</button>
+                        <button id="<?php echo ($row["id"]); ?>" onclick="showform(this.id)" name="editbtn" class="btn btn-success">Edit</button>
 
                     </div>
 
@@ -195,7 +191,7 @@ if ($_GET["logout"]) {
                     <!-- Title -->
                     <h2 class="card-title">Add new vote applicant</h2>
                     <!-- Button -->
-                    <button id="add" onclick="showform(this.id)" name="editbtn" class="btn btn-success">Add</button>
+                    <button id="add" onclick="showform(this.id)" name="addbtn" class="btn btn-success">Add</button>
                 </div>
             </div>
             <!--Add new Card -->
@@ -204,30 +200,31 @@ if ($_GET["logout"]) {
         </div>
     </div>
 
-    <div class="popup-form">
+    <div class="popup-form shadow-lg">
         <!-- Default form contact -->
-        <form class="text-center border border-light p-5" method="POST" action="#!">
+        
+        <form class="text-center border border-light p-5" method="POST" action="<?php echo($_SERVER["PHP_SELF"]) ?>">
 
             <p class="h4 mb-4">Contact us</p>
 
             <!-- Name -->
-            <input type="text" id="defaultContactFormName" class="form-control mb-4" placeholder="Name">
+            <input type="text" id="namepop" class="form-control mb-4" placeholder="Name" required>
 
             <!-- Email -->
-            <input type="text" id="defaultContact" class="form-control mb-4" placeholder="Image URL">
+            <input type="text" id="imgpop" class="form-control mb-4" placeholder="Image URL" required>
 
             <!-- Subject -->
             <label>Subject</label>
 
             <!-- Message -->
             <div class="form-group">
-                <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="3" placeholder="Discription"></textarea>
+                <textarea class="form-control rounded-0" id="dispop" rows="3" placeholder="Discription" required></textarea>
             </div>
 
 
 
-            <!-- Send button -->
-            <button class="btn btn-success btn-block" id="popupformbtn">ADD</button>
+            <!-- ADD button -->
+            <button type="submit" name="addbtnf" class="btn btn-success btn-block" id="popupformbtn">ADD</button>
 
         </form>
         <!-- Default form contact -->
@@ -336,15 +333,43 @@ if ($_GET["logout"]) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js" integrity="sha256-lPE3wjN2a7ABWHbGz7+MKBJaykyzqCbU96BJWjio86U=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TimelineMax.min.js" integrity="sha256-fIkQKQryItPqpaWZbtwG25Jp2p5ujqo/NwJrfqAB+Qk=" crossorigin="anonymous"></script>
     <script>
+        ///! shomform func ----------------------------------------------------------------------------
         function showform(id) {
             // console.log("card clicked");
-            console.log("card"+id);
-            
-            const cardtitle = document.getElementById("card-title"+id);
-            
+            console.log("card" + id);
             const popupform = document.querySelector(".popup-form");
             const popupform_title = popupform.querySelector("p");
-            popupform_title.textContent = cardtitle.textContent;
+            const popupform_btn = document.getElementById("popupformbtn");
+
+            if (id != "add") {
+
+                const card = document.getElementById("card" + id);
+                const card_title = card.querySelector(".card-title");
+                const card_img = card.querySelector(".card-img-top");
+                const card_discription = card.querySelector(".card-text");
+
+                const popupform_name = popupform.querySelector("#namepop");
+                const popupform_img = popupform.querySelector("#imgpop");
+                const popupform_dis = popupform.querySelector("#dispop");
+
+
+                popupform_title.textContent = card_title.textContent;
+                popupform_btn.name= "editbtnf";
+               
+                popupform_name.value=card_title.textContent;
+                popupform_img.value=card_img.src;
+                popupform_dis.value=card_discription.textContent;
+               
+
+            } else {
+                popupform_title.textContent = "Add New Record";
+                popupform_btn.name= "addbtnf";
+
+            }
+
+
+
+            // popupform.style.display = "block";
             popupform.classList.add("open");
         }
     </script>

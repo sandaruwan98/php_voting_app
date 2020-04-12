@@ -20,7 +20,7 @@ menutrigger.addEventListener('click', () => {
 });
 
 
-//*  -----------------------------------
+//* close popup form -----------------------------
 
 const popupformbtn = document.querySelector("#popupformbtn");
 
