@@ -132,7 +132,7 @@ if ($_GET["logout"]) {
 
     <?php
     $db = mysqli_connect("localhost", "root", "", "phpvoteapp") or die("could not connect to database");
-
+    //?for update votelist records
     if (isset($_POST["editbtnf"])) {
 
         $id = mysqli_real_escape_string($db, $_POST["hiddeninputid"]);
@@ -142,7 +142,7 @@ if ($_GET["logout"]) {
         $q_edit = "UPDATE votecards SET name = '$nm', img = '$img', discription='$dis' WHERE id='$id'";
         mysqli_query($db, $q_edit);
     }
-
+    //?for add new votelist records
     if (isset($_POST["addbtnf"])) {
         $nm = mysqli_real_escape_string($db, $_POST["namepop"]);
         $img = mysqli_real_escape_string($db, $_POST["imgpop"]);
@@ -151,6 +151,14 @@ if ($_GET["logout"]) {
 
         mysqli_query($db, $q_add);
     }
+    //?for delete votelist records
+    if ($_GET["di"]) {
+        $delete_id = $_GET["di"];
+        $q_delete = "DELETE FROM votecards WHERE id='$delete_id'";
+        mysqli_query($db, $q_delete) or die("could not delete from database");
+    }
+
+
 
     $query = "SELECT * FROM votecards";
 
@@ -165,7 +173,6 @@ if ($_GET["logout"]) {
 
             ?>
                 <!-- Card -->
-
                 <div class="card" id="card<?php echo ($row["id"]);  ?>">
 
                     <!-- Card image -->
@@ -187,6 +194,7 @@ if ($_GET["logout"]) {
                         <!-- Button -->
 
                         <button id="<?php echo ($row["id"]); ?>" onclick="showform(this.id)" name="editbtn" class="btn btn-success">Edit</button>
+                        <a href="dashboard.php?di=<?php echo ($row["id"]); ?>" id="<?php echo ($row["id"]); ?>ll" name="deletebtn" class="btn btn-danger">delete</a>
 
                     </div>
 
@@ -196,7 +204,22 @@ if ($_GET["logout"]) {
 
             <!--Add new Card -->
             <div class="card">
-
+                
+            <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+                    <div class="toast" style="position: absolute; top: 0; right: 0;">
+                        <div class="toast-header">
+                            <img src="..." class="rounded mr-2" alt="...">
+                            <strong class="mr-auto">Alert</strong>
+                            <!-- <small>11 mins ago</small> -->
+                            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="toast-body">
+                           Card Deleted successfully
+                        </div>
+                    </div>
+                </div>
                 <!-- Card image -->
                 <div class="view overlay" style="height: 30vh;">
                     <img class="card-img-top" src="../img/add.png" alt="Card image cap">
@@ -356,10 +379,11 @@ if ($_GET["logout"]) {
         ///! shomform func ----------------------------------------------------------------------------
         function showform(id) {
             // console.log("card clicked");
-            console.log("card" + id);
+            // console.log("card" + id);
             const popupform = document.querySelector(".popup-form");
             const popupform_title = popupform.querySelector("p");
-            const popupform_btn = document.getElementById("popupformbtn");
+            const popupform_btn = document.querySelector("#popupformbtn");
+            const popupform_hiddeninput = popupform.querySelector("#hiddeninput");
 
             if (id != "add") {
 
@@ -371,7 +395,6 @@ if ($_GET["logout"]) {
                 const popupform_name = popupform.querySelector("#namepop");
                 const popupform_img = popupform.querySelector("#imgpop");
                 const popupform_dis = popupform.querySelector("#dispop");
-                const popupform_hiddeninput = popupform.querySelector("#hiddeninput");
 
 
                 popupform_title.textContent = card_title.textContent;
@@ -380,13 +403,13 @@ if ($_GET["logout"]) {
                 popupform_name.value = card_title.textContent;
                 popupform_img.value = card_img.src;
                 popupform_dis.value = card_discription.textContent;
-                popupform_hiddeninput.value = id;
+
 
 
             } else {
                 popupform_title.textContent = "Add New Record";
                 popupform_btn.name = "addbtnf";
-
+                popupform_hiddeninput.value = "id";
             }
 
 
