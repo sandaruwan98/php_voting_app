@@ -132,7 +132,26 @@ if ($_GET["logout"]) {
 
     <?php
     $db = mysqli_connect("localhost", "root", "", "phpvoteapp") or die("could not connect to database");
-    
+
+    if (isset($_POST["editbtnf"])) {
+
+        $id = mysqli_real_escape_string($db, $_POST["hiddeninputid"]);
+        $nm = mysqli_real_escape_string($db, $_POST["namepop"]);
+        $img = mysqli_real_escape_string($db, $_POST["imgpop"]);
+        $dis = mysqli_real_escape_string($db, $_POST["dispop"]);
+        $q_edit = "UPDATE votecards SET name = '$nm', img = '$img', discription='$dis' WHERE id='$id'";
+        mysqli_query($db, $q_edit);
+    }
+
+    if (isset($_POST["addbtnf"])) {
+        $nm = mysqli_real_escape_string($db, $_POST["namepop"]);
+        $img = mysqli_real_escape_string($db, $_POST["imgpop"]);
+        $dis = mysqli_real_escape_string($db, $_POST["dispop"]);
+        $q_add = "INSERT INTO votecards (name,img,discription,numofvotes) VALUES ('$nm','$img','$dis','0')";
+
+        mysqli_query($db, $q_add);
+    }
+
     $query = "SELECT * FROM votecards";
 
     $result = mysqli_query($db, $query);
@@ -202,23 +221,24 @@ if ($_GET["logout"]) {
 
     <div class="popup-form shadow-lg">
         <!-- Default form contact -->
-        
-        <form class="text-center border border-light p-5" method="POST" action="<?php echo($_SERVER["PHP_SELF"]) ?>">
+
+        <form class="text-center border border-light p-5" method="POST" action="<?php echo ($_SERVER["PHP_SELF"]) ?>">
 
             <p class="h4 mb-4">Contact us</p>
 
             <!-- Name -->
-            <input type="text" id="namepop" class="form-control mb-4" placeholder="Name" required>
+            <input type="text" id="namepop" name="namepop" class="form-control mb-4" placeholder="Name" required>
 
             <!-- Email -->
-            <input type="text" id="imgpop" class="form-control mb-4" placeholder="Image URL" required>
+            <input type="text" id="imgpop" name="imgpop" class="form-control mb-4" placeholder="Image URL" required>
+            <input type="text" id="hiddeninput" name="hiddeninputid" style="display: none" placeholder="fuckin id" required>
 
             <!-- Subject -->
             <label>Subject</label>
 
             <!-- Message -->
             <div class="form-group">
-                <textarea class="form-control rounded-0" id="dispop" rows="3" placeholder="Discription" required></textarea>
+                <textarea class="form-control rounded-0" name="dispop" id="dispop" rows="3" placeholder="Discription" required></textarea>
             </div>
 
 
@@ -351,19 +371,21 @@ if ($_GET["logout"]) {
                 const popupform_name = popupform.querySelector("#namepop");
                 const popupform_img = popupform.querySelector("#imgpop");
                 const popupform_dis = popupform.querySelector("#dispop");
+                const popupform_hiddeninput = popupform.querySelector("#hiddeninput");
 
 
                 popupform_title.textContent = card_title.textContent;
-                popupform_btn.name= "editbtnf";
-               
-                popupform_name.value=card_title.textContent;
-                popupform_img.value=card_img.src;
-                popupform_dis.value=card_discription.textContent;
-               
+                popupform_btn.name = "editbtnf";
+
+                popupform_name.value = card_title.textContent;
+                popupform_img.value = card_img.src;
+                popupform_dis.value = card_discription.textContent;
+                popupform_hiddeninput.value = id;
+
 
             } else {
                 popupform_title.textContent = "Add New Record";
-                popupform_btn.name= "addbtnf";
+                popupform_btn.name = "addbtnf";
 
             }
 
