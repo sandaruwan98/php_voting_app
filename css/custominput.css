@@ -5,9 +5,10 @@
 
 .input-cls {
     position: relative;
-    width: 200px;
-    height: 40px; 
+    width: 100%;
+    height: 50px; 
     overflow: hidden;
+    margin: 20px 0;
 }
 
 .input-cls input{
@@ -30,7 +31,7 @@
    
     font-weight: 400;
 
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid white;
 }
 
 
@@ -50,13 +51,15 @@
     transition: all 0.5s ease;
     position: absolute;
     bottom: 3px;
+    left: 0;
+    font-size: 17px;
 }
 
 .input-cls input:focus + .label-cls .span-cls,
 .input-cls input:valid + .label-cls .span-cls {
     color: rgb(21, 127, 226);
     transform: translateY(-100%);
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
 }
 

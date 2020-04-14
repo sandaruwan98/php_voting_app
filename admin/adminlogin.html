@@ -27,6 +27,7 @@ if (isset($_POST["loginadmin"])) {
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/custominput.css">
 
 </head>
 
@@ -35,15 +36,28 @@ if (isset($_POST["loginadmin"])) {
 
     <form method="post" action="<?php echo ($_SERVER['PHP_SELF']) ?>" class="form-signin">
         <h1>Login</h1>
-        <div class="form-group">
+
+        <div class="input-cls">
+            <input type="text" name="username" id="un" autocomplete="off" required>
+            <label for="name" class="label-cls">
+                <span class="span-cls">UserName</span>
+            </label>
+        </div>
+
+        <div class="input-cls">
+            <input type="password" name="pass" id="exampleInputPassword1" autocomplete="off" required>
+            <label for="name" class="label-cls">
+                <span class="span-cls">Password</span>
+            </label>
+        </div>
+        <!-- <div class="form-group">
             <label for="un">Username</label>
             <input type="text" name="username" class="form-control" id="un" required>
-            <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
-        </div>
-        <div class="form-group">
+        </div> -->
+        <!-- <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
             <input type="password" name="pass" class="form-control" id="exampleInputPassword1" required>
-        </div>
+        </div> -->
         <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
             <label class="form-check-label" for="exampleCheck1">Check me out</label>
@@ -54,7 +68,7 @@ if (isset($_POST["loginadmin"])) {
         <?php
             unset($_SESSION["err"]);
         endif ?>
-        <button type="submit" class="btn btn-primary" name="loginadmin">Sign in</button>
+        <button type="submit" class="btn btn-primary rounded-pill" name="loginadmin">Sign in</button>
     </form>
 
 
