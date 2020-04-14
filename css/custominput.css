@@ -1,0 +1,67 @@
+
+* {
+    box-sizing: border-box;
+}
+
+.input-cls {
+    position: relative;
+    width: 200px;
+    height: 40px; 
+    overflow: hidden;
+}
+
+.input-cls input{
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    padding-top: 17px;
+    background: transparent;
+    color: rgb(21, 127, 226);
+}
+
+
+.input-cls .label-cls{
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+   
+    font-weight: 400;
+
+    border-bottom: 1px solid black;
+}
+
+
+.input-cls .label-cls::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    bottom: -2px;
+    border-bottom: 3px solid rgb(21, 127, 226);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+
+.span-cls{
+    transition: all 0.5s ease;
+    position: absolute;
+    bottom: 3px;
+}
+
+.input-cls input:focus + .label-cls .span-cls,
+.input-cls input:valid + .label-cls .span-cls {
+    color: rgb(21, 127, 226);
+    transform: translateY(-100%);
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+.input-cls input:focus + .label-cls::after ,
+.input-cls input:valid + .label-cls::after {
+    transform: translateX(0%);
+}
