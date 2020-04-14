@@ -38,6 +38,17 @@ if ($_GET["logout"]) {
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <script src="https://kit.fontawesome.com/2b554022ef.js" crossorigin="anonymous"></script>
 
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="../js/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="../js/mdb.min.js"></script>
+
+
     <!-- Google Fonts Roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
     <!-- Bootstrap core CSS -->
@@ -130,6 +141,24 @@ if ($_GET["logout"]) {
         </section> -->
     </header>
 
+    <div role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false" style="position: fixed;bottom: 5px;left: 20px; z-index: 7;">
+        <div class="toast-header">
+            <svg class=" rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                <rect fill="#007aff" width="100%" height="100%" /></svg>
+            <strong class="mr-auto">Card id - <?php echo ($_GET["di"]) ?> </strong>
+
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            Card Deleted successfully
+        </div>
+    </div>
+
+
+
+
     <?php
     $db = mysqli_connect("localhost", "root", "", "phpvoteapp") or die("could not connect to database");
     //?for update votelist records
@@ -156,7 +185,13 @@ if ($_GET["logout"]) {
         $delete_id = $_GET["di"];
         $q_delete = "DELETE FROM votecards WHERE id='$delete_id'";
         mysqli_query($db, $q_delete) or die("could not delete from database");
+        echo "<script>
+              $('.toast').toast('show');
+              </script>";
+
+        unset($_GET["di"]);
     }
+
 
 
 
@@ -201,25 +236,9 @@ if ($_GET["logout"]) {
                 </div><!-- Card -->
             <?php } ?>
 
-
             <!--Add new Card -->
             <div class="card">
-                
-            <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
-                    <div class="toast" style="position: absolute; top: 0; right: 0;">
-                        <div class="toast-header">
-                            <img src="..." class="rounded mr-2" alt="...">
-                            <strong class="mr-auto">Alert</strong>
-                            <!-- <small>11 mins ago</small> -->
-                            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="toast-body">
-                           Card Deleted successfully
-                        </div>
-                    </div>
-                </div>
+
                 <!-- Card image -->
                 <div class="view overlay" style="height: 30vh;">
                     <img class="card-img-top" src="../img/add.png" alt="Card image cap">
@@ -272,6 +291,7 @@ if ($_GET["logout"]) {
         </form>
         <!-- Default form contact -->
     </div>
+
 
 
     <div class="vote-list-con">
@@ -422,18 +442,7 @@ if ($_GET["logout"]) {
 
 
 
-    <!-- jQuery -->
-    <script type="text/javascript" src="../js/jquery.min.js"></script>
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="../js/popper.min.js"></script>
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="../js/mdb.min.js"></script>
 
-    <script>
-
-    </script>
 </body>
 
 
