@@ -9,6 +9,11 @@ if (!isset($_SESSION["username"])) {
 
 
 
+if ($_GET["logout"]) {
+    session_destroy();
+    unset($_SESSION["username"]);
+    header("location: login.php");
+}
 
 
 ?>
@@ -292,13 +297,5 @@ if (!isset($_SESSION["username"])) {
 
     </script>
 </body>
-<?php
-
-if ($_GET["logout"]) {
-    session_destroy();
-    unset($_SESSION["username"]);
-    header("location: login.php");
-}
-?>
 
 </html>

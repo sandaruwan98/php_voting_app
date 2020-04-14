@@ -294,42 +294,38 @@ if ($_GET["logout"]) {
 
 
 
-    <div class="vote-list-con">
+    <div class="user-con">
         <table class="table">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Voted or not</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                </tr>
+                <?php
+                $q_user = "SELECT * FROM user";
+                $res = mysqli_query($db, $q_user);
+
+                while ($row = mysqli_fetch_assoc($res)) {
+                ?>
+                    <tr>
+                        <th scope="row"><?php echo $row["id"] ?></th>
+                        <td><?php echo $row["username"] ?></td>
+                        <td><?php echo $row["email"] ?></td>
+                        <td><?php echo $row["voted"] ?></td>
+                    </tr>
+                <?php } ?>
+                
             </tbody>
         </table>
 
     </div>
 
     <!--Waves Container-->
-    <div>
+    <!-- <div>
         <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
             <defs>
                 <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
@@ -341,7 +337,7 @@ if ($_GET["logout"]) {
                 <use xlink:href="#gentle-wave" x="48" y="7" fill="rgb(41, 49, 75)" />
             </g>
         </svg>
-    </div>
+    </div> -->
     <!--Waves end-->
 
     <div class="footer row">
