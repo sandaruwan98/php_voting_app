@@ -68,3 +68,84 @@
 .input-cls input:valid + .label-cls::after {
     transform: translateX(0%);
 }
+
+
+/*?-------------------- checkbox -------------------*/
+
+.check{
+    position: relative;
+    width: auto;
+    padding-left: 26px;
+}
+
+.check input {
+    width: 0;
+    height: 0;
+    display: none;
+}
+
+.check input:hover ~ .check-mark {
+    background-color: rgb(117, 117, 117);
+}
+
+.check .check-mark {
+    position: absolute;
+    left: 5px;
+    top: 3.4px;
+    width: 17px;
+    height: 17px;
+    background-color: rgb(173, 173, 173);
+    border-radius: 15%;
+    transition: background-color 0.3s ease-in-out;
+}
+
+
+
+.check .check-mark::after {
+    content: "";
+    display: none;
+    position: absolute;
+    left: 6px;
+    top: 1px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 2px 2px 0 ;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    /* background-color: rgb(114, 58, 58); */
+   
+    
+}
+
+.check input:checked ~ .check-mark{
+    background-color: #2196F3;
+}
+
+.check input:checked ~ .check-mark::after{
+    display: block;
+}
+
+
+#logo {
+    animation: logofill 1s  2s  forwards ease;
+}
+
+#logo path{
+    stroke-dasharray: 60px;
+    /* stroke-dashoffset: 660px; */
+    animation: logoanim  2s   forwards ease-in;
+}
+
+@keyframes logoanim{
+    to{
+        stroke-dasharray: 660px;
+    }
+}
+
+@keyframes logofill{
+    to{
+        fill: white;
+    }
+}
